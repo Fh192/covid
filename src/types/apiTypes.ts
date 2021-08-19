@@ -30,7 +30,7 @@ export interface Continent extends Common {
   countries: string[];
 }
 
-export interface HistoricalCountry {
+export interface CountryHistory {
   country: string;
   timeline: {
     cases: { [key: string]: number };
@@ -39,7 +39,7 @@ export interface HistoricalCountry {
   };
 }
 
-export type HistoricalCountries = Array<HistoricalCountry>;
+export type CountriesHistory = Array<CountryHistory>;
 export type Global = Common;
 export type Countries = Array<Country>;
 export type Continents = Array<Continent>;
