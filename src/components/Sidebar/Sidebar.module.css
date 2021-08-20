@@ -1,0 +1,6 @@
+.sidebar {
+  padding: 50px 30px;
+  width: 300px;
+  min-height: calc(100vh - 100px);
+  background-color: #1e1e1e;
+}

@@ -1,0 +1,39 @@
+.countriesList,
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.countriesList {
+  gap: 30px;
+}
+
+.list {
+  gap: 20px;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 28px;
+}
+
+.loadBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.loadBtn button {
+  color: #fff;
+  font-size: 16px;
+  padding: 10px 15px;
+  border-radius: 10px;
+  background: #23994b;
+  box-shadow: 0px 0px 9px #23994b;
+}
+
+.loadBtn:hover {
+  transform: scale(1.03);
+}
