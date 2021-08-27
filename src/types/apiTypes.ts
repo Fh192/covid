@@ -9,6 +9,7 @@ interface Common {
   active: number;
   tests: number;
   population: number;
+  casesPerOneMillion: number;
 }
 
 export interface Country extends Common {

@@ -1,4 +1,5 @@
 import React from 'react';
+import CovidMap from './CovidMap/CovidMap';
 import styles from './Main.module.css';
 import Stats from './Stats/Stats';
 
@@ -9,6 +10,7 @@ const Main: React.FC = () => {
         <div className={styles.title}>Spread of COVID-19</div>
         <Stats />
       </div>
+      <CovidMap/>
     </main>
   );
 };

@@ -1,0 +1,68 @@
+.tooltip {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 10px 15px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 13px;
+  line-height: 15px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.flag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flag img {
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
+}
+
+.statistic {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 60px;
+  width: 21px;
+  height: 21px;
+}
+
+.icon svg {
+  position: static;
+}
+
+.recovered {
+  background: #23994b;
+  box-shadow: 0px 0px 9px #23994b;
+}
+
+.infected {
+  background: linear-gradient(180deg, #992323 0%, #e34141 100%);
+  box-shadow: 0px 0px 9px #992323;
+}
+
+.deaths {
+  background: #000;
+}
