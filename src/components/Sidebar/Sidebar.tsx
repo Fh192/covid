@@ -10,6 +10,7 @@ interface Props {
 const Sidebar: React.FC<Props> = props => {
   return (
     <div className={styles.sidebar}>
+      <div className={styles.datePicker}></div>
       <CountriesList countriesStatistic={props.countriesStatistic} />
     </div>
   );

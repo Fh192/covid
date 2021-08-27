@@ -1,6 +1,15 @@
 .sidebar {
-  padding: 50px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 30px;
   width: 300px;
-  min-height: calc(100vh - 100px);
+  height: calc(100vh - 60px);
   background-color: #1e1e1e;
+}
+
+.datePicker {
+  display: flex;
+  width: 300px;
+  height: 250px;
 }

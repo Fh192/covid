@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Countries } from '../../../types/apiTypes';
 import styles from './CountriesList.module.css';
 import CountriesListItem from './CountriesListItem/CountriesListItem';
@@ -8,13 +8,31 @@ interface Props {
 }
 
 const CountriesList: React.FC<Props> = ({ countriesStatistic }) => {
-  const [listLength, seyListLength] = useState(5);
+  const [listLength, seyListLength] = useState(20);
+  const listRef = useRef<HTMLUListElement>(null);
+
+  useEffect(() => {
+    const element = listRef.current as HTMLUListElement;
+
+    const listener = (e: Event) => {
+      const { scrollHeight, scrollTop, offsetHeight } = element;
+
+      if (!(listLength >= countriesStatistic.length)) {
+        if (scrollTop + offsetHeight >= scrollHeight - 100) {
+          seyListLength(l => l + 20);
+        }
+      }
+    };
+    element.addEventListener('scroll', listener);
+
+    return () => element.removeEventListener('scroll', listener);
+  }, []);
 
   return (
     <div className={styles.countriesList}>
       <div className={styles.title}>Countries</div>
       <>
-        <ul className={styles.list}>
+        <ul className={styles.list} ref={listRef}>
           {countriesStatistic
             .sort((a, b) => b.cases - a.cases)
             .slice(0, listLength)
@@ -22,9 +40,6 @@ const CountriesList: React.FC<Props> = ({ countriesStatistic }) => {
               <CountriesListItem {...c} key={c.country} />
             ))}
         </ul>
-        <div className={styles.loadBtn}>
-          <button onClick={() => seyListLength(l => l + 5)}>Load more</button>
-        </div>
       </>
     </div>
   );
