@@ -1,48 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styles from './CovidMap.module.css';
-import {
-  MapContainer,
-  GeoJSON,
-  CircleMarker,
-} from 'react-leaflet';
+import { MapContainer, GeoJSON, CircleMarker } from 'react-leaflet';
 import { worldGeoData } from '../../../assets/worldGeoData';
-import { Countries } from '../../../types/apiTypes';
-import covidAPI from '../../../api/covidAPI';
+import { Countries, Global } from '../../../types/apiTypes';
 import CovidTooltip from './CovidTooltip/CovidTooltip';
 
-const CovidMap: React.FC = () => {
-  const [statistic, setStatistic] = useState<Countries | null>(null);
-  const [globalCasesCount, setGlobalCasesCount] = useState(0);
-  const [countriesIndexByCases, setCountriesIndexByCases] = useState<{
-    [k: string]: number;
-  }>({});
+interface Props {
+  countriesStatistic: Countries;
+  globalStatistic: Global;
+}
 
-  useEffect(() => {
-    const fetchStatistic = async () => {
-      const data = await covidAPI.getCountriesStats();
-
-      setStatistic(data);
-
-      const sortedData = data.sort((a, b) => b.cases - a.cases);
-
-      const obj = {} as { [key: string]: number };
-      sortedData.forEach((el, i) => {
-        obj[el.country] = i + 1;
-      });
-
-      setCountriesIndexByCases(obj);
-    };
-    fetchStatistic();
-  }, []);
-
-  useEffect(() => {
-    const fetchGlobalStat = async () => {
-      const data = await covidAPI.getGlobalStats();
-
-      setGlobalCasesCount(data.cases);
-    };
-    fetchGlobalStat();
-  }, []);
+const CovidMap: React.FC<Props> = ({ countriesStatistic, globalStatistic }) => {
+  const globalCasesCount = globalStatistic.cases;
+  const countriesIndexByCases = Object.fromEntries(
+    countriesStatistic
+      .sort((a, b) => b.cases - a.cases)
+      .map((el, i) => {
+        return [el.country, i + 1];
+      })
+  );
 
   return (
     <div className={styles.covidMap}>
@@ -67,26 +43,25 @@ const CovidMap: React.FC = () => {
           })}
         />
 
-        {statistic &&
-          statistic.map(c => {
-            const { lat, long, flag } = c.countryInfo;
+        {countriesStatistic.map(c => {
+          const { lat, long, flag } = c.countryInfo;
 
-            return (
-              <CircleMarker
-                key={c.country}
-                center={[lat, long]}
-                radius={Math.max(
-                  Math.log((c.cases * c.casesPerOneMillion) / globalCasesCount),
-                  2
-                )}
-                fillOpacity={0.5}
-                stroke={false}
-                pathOptions={{ color: '#992323' }}
-              >
-                <CovidTooltip {...{ flag, c, countriesIndexByCases }} />
-              </CircleMarker>
-            );
-          })}
+          return (
+            <CircleMarker
+              key={c.country}
+              center={[lat, long]}
+              radius={Math.max(
+                Math.log((c.cases * c.casesPerOneMillion) / globalCasesCount),
+                2
+              )}
+              fillOpacity={0.5}
+              stroke={false}
+              pathOptions={{ color: '#992323' }}
+            >
+              <CovidTooltip {...{ flag, c, countriesIndexByCases }} />
+            </CircleMarker>
+          );
+        })}
       </MapContainer>
     </div>
   );
