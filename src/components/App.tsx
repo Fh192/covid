@@ -3,6 +3,7 @@ import covidAPI from '../api/covidAPI';
 import { Countries, CountriesHistory, Global } from '../types/apiTypes';
 import './App.css';
 import Main from './Main/Main';
+import Preloader from './Preloader/Preloader';
 import Sidebar from './Sidebar/Sidebar';
 
 export type Nullable<T> = T | null;
@@ -44,24 +45,20 @@ const App: React.FC = () => {
 
   return (
     <div className='App'>
-      <div className='container'>
-        {countriesStatistic &&
-        globalStatistic &&
-        historicalCountriesStatistic ? (
-          <>
-            <Sidebar
-              countriesStatistic={countriesStatistic}
-              historicalCountriesStatistic={historicalCountriesStatistic}
-            />
-            <Main
-              globalStatistic={globalStatistic}
-              countriesStatistic={countriesStatistic}
-            />
-          </>
-        ) : (
-          '....'
-        )}
-      </div>
+      {countriesStatistic && globalStatistic && historicalCountriesStatistic ? (
+        <div className='container'>
+          <Sidebar
+            countriesStatistic={countriesStatistic}
+            historicalCountriesStatistic={historicalCountriesStatistic}
+          />
+          <Main
+            globalStatistic={globalStatistic}
+            countriesStatistic={countriesStatistic}
+          />
+        </div>
+      ) : (
+        <Preloader size='50px' />
+      )}
     </div>
   );
 };

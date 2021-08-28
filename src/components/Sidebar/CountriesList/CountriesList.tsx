@@ -38,38 +38,36 @@ const CountriesList: React.FC<Props> = ({
     element.addEventListener('scroll', listener);
 
     return () => element.removeEventListener('scroll', listener);
-  }, []);
+  }, [listLength, countriesStatistic]);
 
   return (
     <div className={styles.countriesList}>
       <div className={styles.title}>Countries</div>
-      <>
-        <ul className={styles.list} ref={listRef}>
-          {countriesStatistic
-            .sort((a, b) => b.cases - a.cases)
-            .slice(0, listLength)
-            .map(c => {
-              if (isToday) {
-                return <CountriesListItem {...c} key={c.country} />;
-              } else {
-                const historicalStatistic = historicalCountriesStatistic.find(
-                  a => a.country === c.country
-                );
+      <ul className={styles.list} ref={listRef}>
+        {countriesStatistic
+          .sort((a, b) => b.cases - a.cases)
+          .slice(0, listLength)
+          .map(c => {
+            if (isToday) {
+              return <CountriesListItem {...c} key={c.country} />;
+            } else {
+              const historicalStatistic = historicalCountriesStatistic.find(
+                a => a.country === c.country
+              );
 
-                if (historicalStatistic) {
-                  return (
-                    <CountriesListItem
-                      {...c}
-                      cases={historicalStatistic.timeline.cases[dateAsObjKey]}
-                      key={c.country}
-                    />
-                  );
-                }
+              if (historicalStatistic) {
+                return (
+                  <CountriesListItem
+                    {...c}
+                    cases={historicalStatistic.timeline.cases[dateAsObjKey]}
+                    key={c.country}
+                  />
+                );
               }
-              return null;
-            })}
-        </ul>
-      </>
+            }
+            return null;
+          })}
+      </ul>
     </div>
   );
 };
