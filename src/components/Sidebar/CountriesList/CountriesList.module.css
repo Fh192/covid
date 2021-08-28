@@ -10,7 +10,7 @@
 }
 
 .list {
-  max-height: 400px;
+  max-height: 260px;
   overflow-y: scroll;
   gap: 20px;
   padding-right: 10px;

@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import covidAPI from '../api/covidAPI';
-import { Countries, Global } from '../types/apiTypes';
+import { Countries, CountriesHistory, Global } from '../types/apiTypes';
 import './App.css';
 import Main from './Main/Main';
 import Sidebar from './Sidebar/Sidebar';
 
+export type Nullable<T> = T | null;
+
 const App: React.FC = () => {
   const [countriesStatistic, setCountriesStatistic] =
-    useState<Countries | null>(null);
-  const [globalStatistic, setGlobalStatistic] = useState<Global | null>(null);
+    useState<Nullable<Countries>>(null);
+  const [globalStatistic, setGlobalStatistic] =
+    useState<Nullable<Global>>(null);
+  const [historicalCountriesStatistic, setHistoricalCountriesStatistic] =
+    useState<Nullable<CountriesHistory>>(null);
 
   useEffect(() => {
     const fetchCountriesStatistic = async () => {
@@ -28,12 +33,26 @@ const App: React.FC = () => {
     fetchGlobalStatistic();
   }, []);
 
+  useEffect(() => {
+    const fetchHistoricalStatistic = async () => {
+      const statistic = await covidAPI.getCountriesHistoryStats();
+      setHistoricalCountriesStatistic(statistic);
+    };
+
+    fetchHistoricalStatistic();
+  }, []);
+
   return (
     <div className='App'>
       <div className='container'>
-        {countriesStatistic && globalStatistic ? (
+        {countriesStatistic &&
+        globalStatistic &&
+        historicalCountriesStatistic ? (
           <>
-            <Sidebar countriesStatistic={countriesStatistic} />
+            <Sidebar
+              countriesStatistic={countriesStatistic}
+              historicalCountriesStatistic={historicalCountriesStatistic}
+            />
             <Main
               globalStatistic={globalStatistic}
               countriesStatistic={countriesStatistic}

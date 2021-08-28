@@ -54,3 +54,7 @@ p {
 input[type='checkbox'] {
   margin: 0;
 }
+
+abbr[title] {
+  text-decoration: none;
+}
