@@ -75,3 +75,41 @@
   color: #1e1e1e;
   cursor: no-drop;
 }
+
+@media screen and (max-width: 1170px) {
+  .leaflet-container {
+    transition: all 1s ease;
+  }
+}
+
+@media screen and (max-width: 1120px) {
+  .App {
+    overflow: visible;
+  }
+
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .leaflet-container {
+    max-width: 90%;
+  }
+}
+
+@media screen and (max-width: 680px) {
+  .leaflet-container {
+    height: 400px;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .leaflet-container {
+    height: 300px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .leaflet-container {
+    height: 220px;
+  }
+}

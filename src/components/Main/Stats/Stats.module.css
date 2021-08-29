@@ -76,3 +76,26 @@
   font-size: 18px;
   line-height: 21px;
 }
+
+@media screen and (max-width: 800px) {
+  .stats {
+    transition: all 1s ease;
+    gap: 20px;
+  }
+}
+
+@media screen and (max-width: 681px) {
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(2, 170px);
+    grid-template-rows: repeat(2, 1fr);
+    justify-items: start;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .stats {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, 50px);
+  }
+}
