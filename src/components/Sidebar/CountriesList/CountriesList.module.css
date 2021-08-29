@@ -5,6 +5,8 @@
 }
 
 .countriesList {
+  max-width: 280px;
+  width: 100%;
   justify-self: flex-end;
   gap: 30px;
 }
@@ -32,10 +34,4 @@
   font-weight: bold;
   font-size: 24px;
   line-height: 28px;
-}
-
-@media screen and (max-width: 1040px) {
-  .list {
-    /* max-height: 500px; */
-  }
 }
