@@ -11,7 +11,9 @@ export const getCountriesStatistic = createAction(
 );
 
 const countriesReducer = createReducer([] as Countries, b => {
-  b.addCase(setCountriesStatistic, (state, action) => action.payload.statistic);
+  b.addCase(setCountriesStatistic, (state, action) => {
+    return action.payload.statistic.sort((a, b) => b.cases - a.cases);
+  });
 });
 
 export default countriesReducer;

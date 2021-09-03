@@ -46,11 +46,7 @@ function ZoomOnResize() {
 const CovidMap: React.FC<Props> = ({ countriesStatistic, globalStatistic }) => {
   const globalCasesCount = globalStatistic.cases;
   const countriesIndexByCases = Object.fromEntries(
-    countriesStatistic
-      .sort((a, b) => b.cases - a.cases)
-      .map((el, i) => {
-        return [el.country, i + 1];
-      })
+    countriesStatistic.map((el, i) => [el.country, i + 1])
   );
 
   return (
