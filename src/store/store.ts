@@ -6,12 +6,12 @@ import rootSaga from './sagas/rootSaga';
 const sagaMiddleware = createSagaMiddleware();
 
 const store = configureStore({
-  reducer: rootReducer(),
+  reducer: rootReducer,
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware().concat(sagaMiddleware),
 });
 
-sagaMiddleware.run(rootSaga)
+sagaMiddleware.run(rootSaga);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type RootDispatch = typeof store.dispatch;
