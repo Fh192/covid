@@ -3,8 +3,9 @@
   align-items: center;
   justify-content: space-between;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 21px;
+  gap: 10px;
 }
 
 .inner {
@@ -19,4 +20,5 @@
   height: 48px;
   border-radius: 50%;
   object-fit: cover;
+  background: rgba(255, 255, 255, 0.1);
 }

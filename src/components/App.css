@@ -20,6 +20,9 @@
 }
 
 .react-calendar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   background-color: transparent;
   border: none;
   color: #fff;
@@ -32,6 +35,12 @@
   background: #484848;
   border-radius: 6px;
   padding: 10px;
+  color: #fff;
+  font-size: 13px;
+}
+
+.react-calendar__tile:hover {
+  background: rgb(63, 63, 63);
 }
 
 .react-calendar__navigation__label__labelText,
@@ -45,10 +54,8 @@
   box-shadow: 0px 0px 9px #992323;
 }
 
-.react-calendar__month-view__days__day,
-.react-calendar__month-view__days__day--weekend {
-  color: #fff;
-  font-size: 13px;
+.react-calendar__tile--active:hover {
+  background: #992323;
 }
 
 .react-calendar__month-view__days {
@@ -66,11 +73,34 @@
   padding: 10px 0;
 }
 
+.react-calendar__year-view__months {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+}
+
+.react-calendar__decade-view__years {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr);
+  justify-content: center;
+  gap: 1px;
+}
+
+.react-calendar__century-view__decades {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr);
+  justify-content: center;
+  gap: 1px;
+}
+
 .react-calendar__month-view__weekdays__weekday {
   max-width: unset !important;
 }
 
-.react-calendar__month-view__days button:disabled {
+.react-calendar__month-view__days button:disabled,
+.react-calendar__year-view__months button:disabled,
+.react-calendar__decade-view__years button:disabled,
+.react-calendar__century-view__decades button:disabled {
   background: #2d2d2d;
   color: #1e1e1e;
   cursor: no-drop;

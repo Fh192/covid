@@ -58,7 +58,7 @@ const CovidMap: React.FC<Props> = ({ countriesStatistic, globalStatistic }) => {
       center={[50, 0]}
       zoom={getZoom()}
       zoomSnap={0.1}
-      minZoom={0}
+      minZoom={getZoom()}
       maxZoom={5}
     >
       <GeoJSON

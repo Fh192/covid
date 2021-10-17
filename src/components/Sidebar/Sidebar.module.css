@@ -4,14 +4,17 @@
   justify-content: space-between;
   padding: 30px;
   height: calc(100vh - 60px);
-  width: 300px;
+  max-width: calc(320px - 60px);
+  width: 100%;
   background-color: #1e1e1e;
+  gap: 10px;
 }
 
 @media screen and (max-width: 1120px) {
   .sidebar {
     order: 3;
     width: 100%;
+    max-width: unset;
     height: unset;
     flex-direction: row;
     align-items: center;
