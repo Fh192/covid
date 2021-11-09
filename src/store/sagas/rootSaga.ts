@@ -1,8 +1,6 @@
 import { all } from '@redux-saga/core/effects';
-import countriesWatcher from './countriesSaga';
-import globalWatcher from './globalSaga';
-import historicalWatcher from './historicalSaga';
+import statisticsWatcher from './statistics';
 
 export default function* rootSaga() {
-  yield all([countriesWatcher(), globalWatcher(), historicalWatcher()]);
+  yield all([statisticsWatcher()]);
 }

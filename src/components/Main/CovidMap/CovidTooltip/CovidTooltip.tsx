@@ -3,7 +3,7 @@ import { Tooltip } from 'react-leaflet';
 import DeathsIcon from '../../../../svg/DeathsIcon';
 import InfectedIcon from '../../../../svg/InfectedIcon';
 import RecoveredIcon from '../../../../svg/RecoveredIcon';
-import { Country } from '../../../../types/apiTypes';
+import { Country } from '../../../../types';
 import styles from './CovidTooltip.module.css';
 
 interface Props {

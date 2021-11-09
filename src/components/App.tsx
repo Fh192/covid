@@ -1,59 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getCountriesStatistic } from '../store/reducers/countriesReducer';
-import { getGlobalStatistic } from '../store/reducers/globalReducer';
-import { getHistoricalStatistic } from '../store/reducers/historicalReducer';
-import { RootState } from '../store/store';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { useSelector } from '../hooks/useSelector';
+import { getStatistics } from '../store/reducers/statisticsSlice';
 import './App.css';
 import Main from './Main/Main';
 import Preloader from './Preloader/Preloader';
 import Sidebar from './Sidebar/Sidebar';
 
-export type Nullable<T> = T | null;
-
 const App: React.FC = () => {
-  const countriesStatistic = useSelector(
-    (state: RootState) => state.countriesStatistic
-  );
-  const globalStatistic = useSelector(
-    (state: RootState) => state.globalStatistic
-  );
-  const historicalStatistic = useSelector(
-    (state: RootState) => state.historicalStatistic
-  );
-
-  const [isReady, setIsReady] = useState(false);
-
   const dispatch = useDispatch();
+  const { fetching } = useSelector(s => s.statistics);
 
   useEffect(() => {
-    dispatch(getCountriesStatistic());
-    dispatch(getGlobalStatistic());
-    dispatch(getHistoricalStatistic());
+    dispatch(getStatistics());
   }, [dispatch]);
-
-  useEffect(() => {
-    if (
-      countriesStatistic.length > 0 &&
-      Object.keys(globalStatistic).length > 0 &&
-      historicalStatistic.length > 0
-    ) {
-      setIsReady(true);
-    }
-  }, [countriesStatistic, globalStatistic, historicalStatistic]);
 
   return (
     <div className='App'>
-      {isReady ? (
+      {!fetching ? (
         <div className='container'>
-          <Sidebar
-            countriesStatistic={countriesStatistic}
-            historicalCountriesStatistic={historicalStatistic}
-          />
-          <Main
-            globalStatistic={globalStatistic}
-            countriesStatistic={countriesStatistic}
-          />
+          <Sidebar />
+          <Main />
         </div>
       ) : (
         <Preloader size='50px' />

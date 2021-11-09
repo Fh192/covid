@@ -1,15 +1,13 @@
 import React from 'react';
-import { Country } from '../../../../types/apiTypes';
 import styles from './CountriesListItem.module.css';
 
-interface Props extends Country {}
+interface Props {
+  flag: string;
+  country: string;
+  cases: number;
+}
 
-const CountriesListItem: React.FC<Props> = ({
-  countryInfo,
-  country,
-  cases,
-}) => {
-  const flag = countryInfo.flag;
+const CountriesListItem: React.FC<Props> = ({ flag, country, cases }) => {
   return (
     <li className={styles.country}>
       <div className={styles.inner}>

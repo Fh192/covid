@@ -1,68 +1,63 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Countries, CountriesHistory } from '../../../types/apiTypes';
+import { useSelector } from '../../../hooks/useSelector';
 import styles from './CountriesList.module.css';
 import CountriesListItem from './CountriesListItem/CountriesListItem';
 
 interface Props {
-  countriesStatistic: Countries;
-  historicalCountriesStatistic: CountriesHistory;
   date: Date;
 }
 
-const CountriesList: React.FC<Props> = ({
-  historicalCountriesStatistic,
-  countriesStatistic,
-  date,
-}) => {
+const CountriesList: React.FC<Props> = ({ date }) => {
   const listRef = useRef<HTMLUListElement>(null);
+  const today = date.toLocaleDateString() === new Date().toLocaleDateString();
   const [listLength, seyListLength] = useState(20);
-
-  const isToday = date.toDateString() === new Date().toDateString();
-  const year = date.getFullYear().toString();
-  const dateAsObjKey = `${date.getMonth() + 1}/${date.getDate()}/${
-    year[year.length - 2] + year[year.length - 1]
-  }`;
+  const { countries, historical } = useSelector(s => s.statistics);
 
   useEffect(() => {
     const element = listRef.current as HTMLUListElement;
 
-    const listener = (e: Event) => {
+    const listener = () => {
       const { scrollHeight, scrollTop, offsetHeight } = element;
 
-      if (!(listLength >= countriesStatistic.length)) {
+      if (!(listLength >= countries.length)) {
         if (scrollTop + offsetHeight >= scrollHeight - 100) {
           seyListLength(l => l + 20);
         }
       }
     };
-    element.addEventListener('scroll', listener);
 
+    element.addEventListener('scroll', listener);
     return () => element.removeEventListener('scroll', listener);
-  }, [listLength, countriesStatistic]);
+  }, [listLength, countries]);
 
   return (
     <div className={styles.countriesList}>
       <div className={styles.title}>Countries</div>
       <ul className={styles.list} ref={listRef}>
-        {countriesStatistic.slice(0, listLength).map(c => {
-          if (isToday) {
-            return <CountriesListItem {...c} key={c.country} />;
-          } else {
-            const historicalStatistic = historicalCountriesStatistic.find(
-              a => a.country === c.country
-            );
+        {countries.slice(0, listLength).map(c => {
+          let cases = c.cases;
+          if (!today) {
+            const country = historical.find(v => v.country === c.country);
 
-            if (historicalStatistic) {
-              return (
-                <CountriesListItem
-                  {...c}
-                  cases={historicalStatistic.timeline.cases[dateAsObjKey]}
-                  key={c.country}
-                />
-              );
+            if (country) {
+              const casesTimeline = country.timeline.cases;
+              const casesKey = Object.keys(casesTimeline).find(d => {
+                const d1 = new Date(d).toDateString();
+                const d2 = new Date(date).toDateString();
+                return d1 === d2;
+              }) as string;
+              cases = casesTimeline[casesKey];
             }
           }
-          return null;
+
+          return (
+            <CountriesListItem
+              flag={c.countryInfo.flag}
+              cases={cases}
+              country={c.country}
+              key={c.country}
+            />
+          );
         })}
       </ul>
     </div>

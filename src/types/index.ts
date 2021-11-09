@@ -40,6 +40,12 @@ export interface CountryHistory {
   };
 }
 
+export interface Statistics {
+  countries: Countries;
+  global: Global;
+  historical: CountriesHistory;
+}
+
 export type CountriesHistory = Array<CountryHistory>;
 export type Global = Common;
 export type Countries = Array<Country>;

@@ -6,13 +6,8 @@ import {
   useMapEvent,
 } from 'react-leaflet';
 import { worldGeoData } from '../../../assets/worldGeoData';
-import { Countries, Global } from '../../../types/apiTypes';
+import { useSelector } from '../../../hooks/useSelector';
 import CovidTooltip from './CovidTooltip/CovidTooltip';
-
-interface Props {
-  countriesStatistic: Countries;
-  globalStatistic: Global;
-}
 
 const getZoom = () => {
   const width = window.innerWidth;
@@ -43,10 +38,12 @@ function ZoomOnResize() {
   return null;
 }
 
-const CovidMap: React.FC<Props> = ({ countriesStatistic, globalStatistic }) => {
-  const globalCasesCount = globalStatistic.cases;
+const CovidMap: React.FC = () => {
+  const { global, countries } = useSelector(s => s.statistics);
+
+  const globalCasesCount = global.cases;
   const countriesIndexByCases = Object.fromEntries(
-    countriesStatistic.map((el, i) => [el.country, i + 1])
+    countries.map((el, i) => [el.country, i + 1])
   );
 
   return (
@@ -72,7 +69,7 @@ const CovidMap: React.FC<Props> = ({ countriesStatistic, globalStatistic }) => {
       />
       <ZoomOnResize />
 
-      {countriesStatistic.map(c => {
+      {countries.map(c => {
         const { lat, long, flag } = c.countryInfo;
 
         return (

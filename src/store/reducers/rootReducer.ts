@@ -1,12 +1,8 @@
 import { combineReducers } from 'redux';
-import countriesReducer from './countriesReducer';
-import globalReducer from './globalReducer';
-import historicalReducer from './historicalReducer';
+import statisticsSlice from './statisticsSlice';
 
 const rootReducer = combineReducers({
-  countriesStatistic: countriesReducer,
-  globalStatistic: globalReducer,
-  historicalStatistic: historicalReducer,
+  statistics: statisticsSlice,
 });
 
 export default rootReducer;

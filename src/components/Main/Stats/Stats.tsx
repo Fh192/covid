@@ -1,18 +1,14 @@
 import React from 'react';
+import { useSelector } from '../../../hooks/useSelector';
 import DeathsIcon from '../../../svg/DeathsIcon';
 import GlobeIcon from '../../../svg/GlobeIcon';
 import InfectedIcon from '../../../svg/InfectedIcon';
 import RecoveredIcon from '../../../svg/RecoveredIcon';
-import { Global } from '../../../types/apiTypes';
 import styles from './Stats.module.css';
 
-interface Props {
-  globalStatistic: Global;
-}
-
-const Stats: React.FC<Props> = ({ globalStatistic }) => {
+const Stats: React.FC = () => {
   const { cases, todayCases, recovered, todayRecovered, deaths, todayDeaths } =
-    globalStatistic;
+    useSelector(s => s.statistics.global);
 
   return (
     <ul className={styles.stats}>
