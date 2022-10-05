@@ -1,23 +1,18 @@
+import api from '.';
 import { Countries, CountriesHistory, Global } from '../types';
-import instance from './instance';
 
 const covidAPI = {
-  getGlobalStats: async () => {
-    const response = await instance.get<Global>('all');
-
-    return response.data;
+  getGlobalStats: async (): Promise<Global> => {
+    const { data } = await api.get<Global>('all');
+    return data;
   },
-
-  getCountriesStats: async () => {
-    const response = await instance.get<Countries>('countries');
-
-    return response.data;
+  getCountriesStats: async (): Promise<Countries> => {
+    const { data } = await api.get<Countries>('countries');
+    return data;
   },
-
-  getCountriesHistoryStats: async () => {
-    const response = await instance.get<CountriesHistory>('historical');
-
-    return response.data;
+  getCountriesHistoryStats: async (): Promise<CountriesHistory> => {
+    const { data } = await api.get<CountriesHistory>('historical');
+    return data;
   },
 };
 

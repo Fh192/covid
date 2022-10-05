@@ -5,6 +5,7 @@
 }
 
 .countriesList {
+  overflow: hidden;
   max-width: 280px;
   width: 100%;
   justify-self: flex-end;
@@ -12,8 +13,6 @@
 }
 
 .list {
-  max-height: 260px;
-  overflow: hidden;
   overflow-y: scroll;
   gap: 20px;
   padding-right: 10px;

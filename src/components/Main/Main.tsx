@@ -7,7 +7,7 @@ const Main: React.FC = () => {
   return (
     <main className={styles.main}>
       <div className={styles.header}>
-        <div className={styles.title}>Spread of COVID-19</div>
+        <h1 className={styles.title}>Spread of COVID-19</h1>
         <Stats />
       </div>
       <CovidMap />

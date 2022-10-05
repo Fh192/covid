@@ -1,5 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useRef, useState } from 'react';
+import { useOnScroll } from '../../../hooks/useOnScroll';
 import { useSelector } from '../../../hooks/useSelector';
+import { selectStatisticsState } from '../../../store/selectors';
 import styles from './CountriesList.module.css';
 import CountriesListItem from './CountriesListItem/CountriesListItem';
 
@@ -10,29 +12,16 @@ interface Props {
 const CountriesList: React.FC<Props> = ({ date }) => {
   const listRef = useRef<HTMLUListElement>(null);
   const today = date.toLocaleDateString() === new Date().toLocaleDateString();
-  const [listLength, seyListLength] = useState(20);
-  const { countries, historical } = useSelector(s => s.statistics);
+  const [listLength, setListLength] = useState(20);
+  const { countries, historical } = useSelector(selectStatisticsState);
 
-  useEffect(() => {
-    const element = listRef.current as HTMLUListElement;
-
-    const listener = () => {
-      const { scrollHeight, scrollTop, offsetHeight } = element;
-
-      if (!(listLength >= countries.length)) {
-        if (scrollTop + offsetHeight >= scrollHeight - 100) {
-          seyListLength(l => l + 20);
-        }
-      }
-    };
-
-    element.addEventListener('scroll', listener);
-    return () => element.removeEventListener('scroll', listener);
-  }, [listLength, countries]);
+  useOnScroll(listRef, listLength < countries.length, () => {
+    setListLength(l => l + 20);
+  });
 
   return (
     <div className={styles.countriesList}>
-      <div className={styles.title}>Countries</div>
+      <h2 className={styles.title}>Countries</h2>
       <ul className={styles.list} ref={listRef}>
         {countries.slice(0, listLength).map(c => {
           let cases = c.cases;

@@ -14,7 +14,6 @@ const CountriesListItem: React.FC<Props> = ({ flag, country, cases }) => {
         <img className={styles.flag} src={flag} alt={`${country} flag`} />
         <div className={styles.name}>{country}</div>
       </div>
-
       <div className={styles.cases}>{cases.toLocaleString()}</div>
     </li>
   );

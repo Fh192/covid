@@ -1,6 +1,5 @@
-import { call, put, takeEvery } from '@redux-saga/core/effects';
+import { all, call, put, takeEvery } from '@redux-saga/core/effects';
 import covidAPI from '../../api/covidAPI';
-import { Countries, CountriesHistory, Global } from '../../types';
 import { getStatistics, setStatistics } from '../reducers/statisticsSlice';
 
 export const fetchCountriesStatistic = () => {
@@ -16,9 +15,11 @@ export const fetchHistoricalStatistic = () => {
 };
 
 export function* statisticsWorker() {
-  const countries: Countries = yield call(fetchCountriesStatistic);
-  const global: Global = yield call(fetchGlobalStatistic);
-  const historical: CountriesHistory = yield call(fetchHistoricalStatistic);
+  const { countries, global, historical } = yield all({
+    countries: call(fetchCountriesStatistic),
+    global: call(fetchGlobalStatistic),
+    historical: call(fetchHistoricalStatistic),
+  });
 
   yield put(setStatistics({ countries, global, historical }));
 }

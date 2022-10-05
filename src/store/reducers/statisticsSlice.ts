@@ -1,12 +1,23 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Statistics, StatisticsSliceState } from '../../types';
 
-import { Countries, CountriesHistory, Global, Statistics } from '../../types';
-
-const initialState = {
-  countries: [] as Countries,
-  global: {} as Global,
-  historical: [] as CountriesHistory,
+const initialState: StatisticsSliceState = {
   fetching: true,
+  countries: [],
+  historical: [],
+  global: {
+    updated: 0,
+    cases: 0,
+    todayCases: 0,
+    deaths: 0,
+    todayDeaths: 0,
+    recovered: 0,
+    todayRecovered: 0,
+    active: 0,
+    tests: 0,
+    population: 0,
+    casesPerOneMillion: 0,
+  },
 };
 
 const statisticsSlice = createSlice({

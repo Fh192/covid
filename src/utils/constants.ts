@@ -1,4 +1,4 @@
-export  const worldGeoData = {
+export const WORLD_GEO_DATA = {
   type: 'FeatureCollection',
   features: [
     {

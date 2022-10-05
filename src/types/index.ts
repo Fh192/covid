@@ -1,3 +1,8 @@
+export type CountriesHistory = Array<CountryHistory>;
+export type Global = Common;
+export type Countries = Array<Country>;
+export type Continents = Array<Continent>;
+
 interface Common {
   updated: number;
   cases: number;
@@ -46,7 +51,9 @@ export interface Statistics {
   historical: CountriesHistory;
 }
 
-export type CountriesHistory = Array<CountryHistory>;
-export type Global = Common;
-export type Countries = Array<Country>;
-export type Continents = Array<Continent>;
+export interface StatisticsSliceState {
+  countries: Countries;
+  global: Global;
+  historical: CountriesHistory;
+  fetching: boolean;
+}

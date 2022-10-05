@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from '../hooks/useSelector';
 import { getStatistics } from '../store/reducers/statisticsSlice';
+import { selectStatisticsState } from '../store/selectors';
 import './App.css';
 import Main from './Main/Main';
 import Preloader from './Preloader/Preloader';
@@ -9,7 +10,7 @@ import Sidebar from './Sidebar/Sidebar';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
-  const { fetching } = useSelector(s => s.statistics);
+  const { fetching } = useSelector(selectStatisticsState);
 
   useEffect(() => {
     dispatch(getStatistics());
